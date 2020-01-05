@@ -20,7 +20,7 @@
         <div class='contrl pc'>
             <ul>
                 <li><a href="kcb.html">安排课程表</a></li>
-                <li><a href="equipbr.html">设备借还</a></li>
+                <li><a href="equipbr.html">设备借用</a></li>
                 <li><a href="forerror.html">故障申报</a></li>
                 <li><a href="yharrange.html">易耗品管理</a></li>
                 <li><a href="outplan.html">计划外申请</a></li>
@@ -58,16 +58,17 @@
         <p class="text">进行<strong>各实验室</strong>的<strong>计划外物品</strong>的申请。
 
         </p>
-        <form action="" method="post" id="outplansq">
+        <form action="http://192.168.101.37:3000/a_form/add" method="get" id="outplansq">
             <div class="part-title">
                 <h1>计划外物品申请表</h1>
 
             </div>
-            <p class='text'> <strong>申请物品名称：</strong><input type="text" name="op-item" class='input-text' /> </p>
-            <p class='text'> <strong>申请原因：</strong><input type="text" name="ip-reason" class='input-text' /> </p>
+            <p class='text'> <strong>序号：</strong><input type="text" name="id" class='input-text' /> </p>
+            <p class='text'> <strong>申请物品名称：</strong><input type="text" name="item_name" class='input-text' /> </p>
+            <p class='text'> <strong>申请原因：</strong><input type="text" name="reason" class='input-text' /> </p>
             <br>
             <br>
-            <input type="submit" value="提交" class="login-button" />
+            <button type="button" id='sqoutplan' class="login-button">Submit</button>
             <br>
             <br>
         </form>
@@ -85,8 +86,30 @@
 </body>
 
 <script>
+    $(document).ready(function() {
+        $("#sqoutplan").click(function() {
 
+            var targetUrl = $("#outplansq").attr("action");
+            var data = $("#outplansq").serialize();
+            $.ajax({
+                type: 'get',
+                url: targetUrl,
+                cache: false,
+                data: data,
+                dataType: 'json',
+                success: function(data) {
+                    alert('添加成功');
+                    $("#outplansq input").each(function() {
+                        $(this).val('');
+                    });
+                },
+                error: function() {
+                    alert("录入失败")
+                }
+            })
 
+        })
+    })
 </script>
 
 

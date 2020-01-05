@@ -20,7 +20,7 @@
         <div class='contrl pc'>
             <ul>
                 <li><a href="kcb.html">安排课程表</a></li>
-                <li><a href="equipbr.html">设备借还</a></li>
+                <li><a href="equipbr.html">设备借用</a></li>
                 <li><a href="forerror.html">故障申报</a></li>
                 <li><a href="yharrange.html">易耗品管理</a></li>
                 <li><a href="outplan.html">计划外申请</a></li>
@@ -55,19 +55,19 @@
             <p class="line"></p>
             <p class="en">Fault Application</p>
         </div>
-        <form action="" method="post">
+        <form action="http://192.168.101.37:3000/f_process/add" method="get" id='adderror'>
             <p class="text">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;进行<strong>各实验室</strong>的<strong>故障设备</strong>的申报。
 
             </p>
             <p class='text'>
-                <strong>实验室房间号：</strong> <input type="text" name="roomid" class='input-text' />
-                <strong>设备序号：</strong> <input type="text" name="eqid" class='input-text' />
-                <strong>故障：(彻底损坏、需要维修)</strong> <input type="text" name="reason" class='input-text' />
+                <strong>设备序号：</strong> <input type="text" name="id" class='input-text' />
+                <strong>学院：</strong> <input type="text" name="col" class='input-text' />
+                <strong>故障：(完好、损坏、报废)</strong> <input type="text" name="status" class='input-text' />
             </p>
 
             <br>
             <br>
-            <input type="submit" value="提交" class="login-button" />
+            <button type="button" id='submiterror' class="login-button">Submit</button>
             <br>
             <br>
         </form>
@@ -84,8 +84,30 @@
 </body>
 
 <script>
+    $(document).ready(function() {
+        $("#submiterror").click(function() {
 
+            var targetUrl = $("#adderror").attr("action");
+            var data = $("#adderror").serialize();
+            $.ajax({
+                type: 'get',
+                url: targetUrl,
+                cache: false,
+                data: data,
+                dataType: 'json',
+                success: function(data) {
+                    alert('添加成功');
+                    $("#adderror input").each(function() {
+                        $(this).val('');
+                    });
+                },
+                error: function() {
+                    alert("录入失败")
+                }
+            })
 
+        })
+    })
 </script>
 
 

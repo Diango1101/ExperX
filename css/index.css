@@ -533,6 +533,12 @@ body {
     font-weight: bold;
 }
 
+.yihaosh .text strong {
+    color: #e60012;
+    font-size: 20px;
+    font-weight: bold;
+}
+
 .benefit-list .content {
     padding-top: 36px;
     display: inline-block;

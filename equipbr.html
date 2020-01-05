@@ -20,7 +20,7 @@
         <div class='contrl pc'>
             <ul>
                 <li><a href="kcb.html">安排课程表</a></li>
-                <li><a href="equipbr.html">设备借还</a></li>
+                <li><a href="equipbr.html">设备借用</a></li>
                 <li><a href="forerror.html">故障申报</a></li>
                 <li><a href="yharrange.html">易耗品管理</a></li>
                 <li><a href="outplan.html">计划外申请</a></li>
@@ -51,7 +51,7 @@
 
     <div class="about part" id="id1">
         <div class="part-title">
-            <h1>设备借还</h1>
+            <h1>设备借用</h1>
             <p class="line"></p>
             <p class="en">Device Loan</p>
         </div>
@@ -60,29 +60,17 @@
 
         </p>
 
+        <form action="http://192.168.101.37:3000/actual_use_count/UseNumAdd" id='equipadd'>
+            <!-- 不知道到时候实现返回的数据是啥样，从简还是  所以先这样8 -->
+            <p class='text'>
+                <strong>设备序号：</strong> <input type="text" name="id" class='input-text' />
+                <strong>借用学院：</strong> <input type="text" name="col" class='input-text' />
+                <br>
+                <br>
+                <button type="button" id='submitequip' class="login-button">Borrow</button>
 
-        <!-- 不知道到时候实现返回的数据是啥样，从简还是  所以先这样8 -->
-        <p class='text'>
-            <strong>实验室房间号：</strong> <input type="text" name="roomid" class='input-text' />
-            <strong>使用时间：</strong> <input type="text" name="time" class='input-text' />
-            <strong>使用人：</strong> <input type="text" name="person" class='input-text' />
-            <button type="submit" value="Submit" class="login-button" key=''>提交</button>
-
-        </p>
-        <p class='text'>
-            <strong>实验室房间号：</strong> <input type="text" name="roomid" class='input-text' />
-            <strong>使用时间：</strong> <input type="text" name="time" class='input-text' />
-            <strong>使用人：</strong> <input type="text" name="person" class='input-text' />
-            <button type="submit" value="Submit" class="login-button" key=''>提交</button>
-
-        </p>
-        <p class='text'>
-            <strong>实验室房间号：</strong> <input type="text" name="roomid" class='input-text' />
-            <strong>使用时间：</strong> <input type="text" name="time" class='input-text' />
-            <strong>使用人：</strong> <input type="text" name="person" class='input-text' />
-            <button type="submit" value="Submit" class="login-button" key=''>提交</button>
-
-        </p>
+            </p>
+        </form>
         <br>
         <br>
 
@@ -102,8 +90,30 @@
 </body>
 
 <script>
+    $(document).ready(function() {
+        $("#submitequip").click(function() {
 
+            var targetUrl = $("#equipadd").attr("action");
+            var data = $("#equipadd").serialize();
+            $.ajax({
+                type: 'get',
+                url: targetUrl,
+                cache: false,
+                data: data,
+                dataType: 'json',
+                success: function(data) {
+                    alert('添加成功');
+                    $("#equipadd input").each(function() {
+                        $(this).val('');
+                    });
+                },
+                error: function() {
+                    alert("录入失败")
+                }
+            })
 
+        })
+    })
 </script>
 
 

@@ -12,6 +12,7 @@
     <script src="js/rem.js"></script>
     <script src="js/swiper.js"></script>
     <script src="js/jquery.min.js"></script>
+    <script src="js/kcb.js"></script>
 </head>
 
 <body>
@@ -20,7 +21,7 @@
         <div class='contrl pc'>
             <ul>
                 <li><a href="kcb.html">安排课程表</a></li>
-                <li><a href="equipbr.html">设备借还</a></li>
+                <li><a href="equipbr.html">设备借用</a></li>
                 <li><a href="forerror.html">故障申报</a></li>
                 <li><a href="yharrange.html">易耗品管理</a></li>
                 <li><a href="outplan.html">计划外申请</a></li>
@@ -55,7 +56,7 @@
             <p class="line"></p>
             <p class="en">Curriculum Arrangement</p>
         </div>
-        <form action="http://192.168.101.37:3000/l_course/add" method="POST" class='kcb'>
+        <form id='addkcb' action="http://192.168.101.37:3000/l_course/add" method="GET" class='kcb'>
             <p class="text">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;安排<strong>各实验室</strong>的<strong>课程</strong>。
 
             </p>
@@ -67,7 +68,7 @@
 
             <br>
             <br>
-            <input type="submit" value="Submit" class="login-button" />
+            <button type="button" id='submitkcb' class="login-button">Submit</button>
             <br>
             <br>
         </form>

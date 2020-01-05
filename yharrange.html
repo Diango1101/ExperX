@@ -20,7 +20,7 @@
         <div class='contrl pc'>
             <ul>
                 <li><a href="kcb.html">安排课程表</a></li>
-                <li><a href="equipbr.html">设备借还</a></li>
+                <li><a href="equipbr.html">设备借用</a></li>
                 <li><a href="forerror.html">故障申报</a></li>
                 <li><a href="yharrange.html">易耗品管理</a></li>
                 <li><a href="outplan.html">计划外申请</a></li>
@@ -57,22 +57,27 @@
         </div>
 
         <p class="text">进行<strong>各实验室</strong>的<strong>易耗品</strong>管理与录入。 </p>
-        <form action="" method="post" id="sq">
+        <form action="http://192.168.101.37:3000/actual_use_consumble/add" method="get" id="yhplr">
             <div class="part-title">
                 <h1>易耗品录入</h1>
 
             </div>
-            <p class='text'> <strong>日期：</strong><input type="text" name="time" class='input-text' /> </p>
-            <p class='text'> <strong>产品名称：</strong><input type="text" name="proname" class='input-text' /> </p>
+            <p class='text'> <strong>序号：</strong><input type="text" name="id" class='input-text' /> </p>
+            <p class='text'> <strong>日期：</strong><input type="text" name="date_of_borrow" class='input-text' /> </p>
+            <p class='text'> <strong>名称：</strong><input type="text" name="name" class='input-text' /> </p>
+            <p class='text'> <strong>申报学院：</strong><input type="text" name="col" class='input-text' /> </p>
             <p class='text'> <strong>制造厂商：</strong><input type="text" name="factory" class='input-text' /> </p>
             <p class='text'> <strong>仓库：</strong><input type="text" name="warehouse" class='input-text' /> </p>
-            <p class='text'> <strong>领用人：</strong><input type="text" name="lperson" class='input-text' /> </p>
+            <p class='text'> <strong>领用人：</strong><input type="text" name="item_user" class='input-text' /> </p>
             <br>
             <br>
-            <input type="submit" value="提交" class="login-button" />
+            <button type="button" id='yhluru' class="login-button">Submit</button>
 
         </form>
-        <form action="" method="post" id="gl">
+        <br>
+        <br>
+
+        <!-- <form action="" method="post" id="gl">
             <div class="part-title">
                 <h1>易耗品管理</h1>
 
@@ -84,10 +89,10 @@
 
             <br>
             <br>
-            <input type="submit" value="提交" class="login-button" />
+            <button type="button" id='yhguanli' class="login-button">Submit</button>
             <br>
             <br>
-        </form>
+        </form> -->
     </div>
 
     <div class="footer">
@@ -101,8 +106,62 @@
 </body>
 
 <script>
+    $(document).ready(function() {
+        $("#yhluru").click(function() {
 
+            var targetUrl = $("#yhplr").attr("action");
+            var data = $("#yhplr").serialize();
 
+            $.ajax({
+                type: 'get',
+                url: 'http://192.168.101.37:3000/p_factor/add',
+                cache: false,
+                data: data,
+                dataType: 'json',
+                success: function() {
+                    // $("#equipadd input").each(function() {
+                    //     $(this).val('');
+                    // });
+                    $.ajax({
+                        type: 'get',
+                        url: targetUrl,
+                        cache: false,
+                        data: data,
+                        dataType: 'json',
+                        success: function(data) {
+                            alert('添加成功');
+                            $("#yhplr input").each(function() {
+                                $(this).val('');
+                            });
+                        },
+                        error: function() {
+                            alert("录入失败")
+                        }
+                    })
+                },
+                error: function() {
+                    // alert("录入失败")
+                }
+            })
+            // $.ajax({
+            //     type: 'get',
+            //     url: targetUrl,
+            //     cache: false,
+            //     data: data,
+            //     dataType: 'json',
+            //     success: function(data) {
+            //         alert('添加成功');
+            //         $("#equipadd input").each(function() {
+            //             $(this).val('');
+            //         });
+            //     },
+            //     error: function() {
+            //         alert("录入失败")
+            //     }
+            // })
+
+        })
+    })
 </script>
 
 
